@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/product", product);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4545;
 
 app.listen(port, () => {
   console.log(`Server başlatıldı => http://localhost:${port}/`);

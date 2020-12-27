@@ -11,12 +11,108 @@ router.get("/", (req, res) => {
   res.json(dataBase);
 });
 
-//ID'li ürün getir
-router.get("/:id", async (req, res) => {
-  console.log(`${req.params.id} id'li ürün listelendi`);
+//Title filtreli ürünlerin listelenmesi
+router.get("/title/:title", (req, res) => {
+  console.log(`${req.params.title} başlıklı ürünler listelendi`);
   res.json(
     dataBase.filter((product) => {
-      return product.id === req.params.id;
+      return product.title === req.params.title;
+    })
+  );
+});
+
+//Tip filtreli ürünlerin listelenmesi
+router.get("/type/:type", (req, res) => {
+  console.log(`${req.params.title} tip ürünler listelendi`);
+  res.json(
+    dataBase.filter((product) => {
+      return product.type === req.params.type;
+    })
+  );
+});
+
+//Derece Filtreli ürünlerin listelenmesi
+//  Tam olarak derece
+router.get("/rating/exact/:rating", (req, res) => {
+  console.log(`${req.params.rating} dereceli ürünler listelendi`);
+  res.json(
+    dataBase.filter((product) => {
+      return product.rating == req.params.rating;
+    })
+  );
+});
+//  Derecenin üstü
+router.get("/rating/over/:rating", (req, res) => {
+  console.log(`${req.params.rating} derecesinden yüksek ürünler listelendi`);
+  res.json(
+    dataBase.filter((product) => {
+      return product.rating >= parseInt(req.params.rating);
+    })
+  );
+});
+//  Derecenin altı
+router.get("/rating/below/:rating", (req, res) => {
+  console.log(`${req.params.rating} derecesinden düşük ürünler listelendi`);
+  res.json(
+    dataBase.filter((product) => {
+      return product.rating <= parseInt(req.params.rating);
+    })
+  );
+});
+//  Derecenin arası
+router.get("/rating/between/:ratingH/:ratingL", (req, res) => {
+  console.log(
+    `${req.params.ratingH} derecesinden düşük ve ${req.params.ratingL} derecesinden yüksek ürünler listelendi`
+  );
+  res.json(
+    dataBase.filter((product) => {
+      return (
+        product.rating <= parseInt(req.params.ratingH) &&
+        product.rating >= parseInt(req.params.ratingL)
+      );
+    })
+  );
+});
+
+//Fiyat Filtreli ürünlerin listelenmesi
+//  Tam olarak fiyat
+router.get("/price/exact/:price", (req, res) => {
+  console.log(`${req.params.price} fiyatlı ürünler listelendi`);
+  res.json(
+    dataBase.filter((product) => {
+      return product.price == req.params.price;
+    })
+  );
+});
+//  Fiyatın üstü
+router.get("/price/over/:price", (req, res) => {
+  console.log(`${req.params.price} fiyatından yüksek ürünler listelendi`);
+  res.json(
+    dataBase.filter((product) => {
+      return product.price >= parseInt(req.params.price);
+    })
+  );
+});
+//  Fiyatın altı
+router.get("/price/below/:price", (req, res) => {
+  console.log(`${req.params.price} fiyatından düşük ürünler listelendi`);
+  res.json(
+    dataBase.filter((product) => {
+      return product.price <= parseInt(req.params.price);
+    })
+  );
+});
+//  Fiyatlar arası
+router.get("/price/between/:priceH/:priceL", (req, res) => {
+  console.log(
+    `${req.params.priceH} fiyatından düşük ve ${req.params.priceL} fiyatından yüksek ürünler listelendi`
+  );
+  res.json(
+    dataBase.filter((product) => {
+      return (
+        product.price <= parseInt(req.params.priceH) &&
+        product.price >= parseInt(req.params.priceL)
+      );
     })
   );
 });

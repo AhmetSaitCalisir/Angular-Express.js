@@ -3,7 +3,7 @@ const uniqid = require("uniqid");
 
 const router = express.Router();
 
-let dataBase = [{ id: "0", title: "Deneme" }]; // Denemek için veritabanı
+let dataBase = require("../../database/product.json");
 
 //Tüm ürünleri listele
 router.get("/", (req, res) => {

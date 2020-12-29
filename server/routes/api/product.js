@@ -2,6 +2,8 @@ const express = require("express");
 
 const router = express.Router();
 
+const validation = require("./validation");
+
 let dataBase = require("../../database/product.json");
 
 //Tüm ürünleri listele
@@ -118,19 +120,19 @@ router.get("/price/between/:priceH/:priceL", (req, res) => {
 
 //Ürün ekle
 router.post("/", (req, res) => {
-  if (!req.body.title || typeof req.body.title != "string") {
+  if (!validation.productT_T_D(req.body.title)) {
     res
       .status(400)
       .send("Lütfen ürün ismini (title) doğru girdiğinizden emin olunuz");
     return;
   }
-  if (!req.body.type || typeof req.body.type != "string") {
+  if (!validation.productT_T_D(req.body.type)) {
     res
       .status(400)
       .send("Lütfen ürün tipini (type) doğru girdiğinizden emin olunuz");
     return;
   }
-  if (!req.body.description || typeof req.body.description != "string") {
+  if (!validation.productT_T_D(req.body.description)) {
     res
       .status(400)
       .send(
@@ -138,22 +140,13 @@ router.post("/", (req, res) => {
       );
     return;
   }
-  if (
-    !req.body.price ||
-    typeof req.body.price != "number" ||
-    req.body.price < 0
-  ) {
+  if (!validation.productPrice(req.body.price)) {
     res
       .status(400)
       .send("Lütfen ürün fiyatını (price) doğru girdiğinizden emin olunuz");
     return;
   }
-  if (
-    !req.body.rating ||
-    typeof req.body.rating != "number" ||
-    req.body.rating < 0 ||
-    req.body.rating > 5
-  ) {
+  if (!validation.productRating(req.body.rating)) {
     res
       .status(400)
       .send(
@@ -179,19 +172,21 @@ router.put("/:title", (req, res) => {
     (product) => product.title == req.params.title
   );
   let newDatabase = [...dataBase];
-  newDatabase[productIndex].title = req.body.title
+  newDatabase[productIndex].title = validation.productT_T_D(req.body.title)
     ? req.body.title
     : newDatabase[productIndex].title;
-  newDatabase[productIndex].type = req.body.type
+  newDatabase[productIndex].type = validation.productT_T_D(req.body.type)
     ? req.body.type
     : newDatabase[productIndex].type;
-  newDatabase[productIndex].description = req.body.description
+  newDatabase[productIndex].description = validation.productT_T_D(
+    req.body.description
+  )
     ? req.body.description
     : newDatabase[productIndex].description;
-  newDatabase[productIndex].price = req.body.price
+  newDatabase[productIndex].price = validation.productPrice(req.body.price)
     ? req.body.price
     : newDatabase[productIndex].price;
-  newDatabase[productIndex].rating = req.body.rating
+  newDatabase[productIndex].rating = validation.productRating(req.body.rating)
     ? req.body.rating
     : newDatabase[productIndex].rating;
   dataBase = newDatabase;

@@ -200,10 +200,10 @@ router.put("/:title", (req, res) => {
 });
 
 //Ürün sil
-router.delete("/:id", (req, res) => {
-  dataBase = dataBase.filter((product) => product.id != req.params.id);
-  console.log(`${req.params.id} id'li ürün silindi`);
-  res.status(200).send(`${req.params.id} id'li veri silindi`);
+router.delete("/:title", (req, res) => {
+  dataBase = dataBase.filter((product) => product.title != req.params.title);
+  console.log(`${req.params.title} isimli ürün silindi`);
+  res.status(200).send(`${req.params.title} isimli veri silindi`);
 });
 
 module.exports = router;

@@ -174,18 +174,29 @@ router.post("/", (req, res) => {
 });
 
 //Ürün güncelle
-router.put("/:id", (req, res) => {
+router.put("/:title", (req, res) => {
   const productIndex = dataBase.findIndex(
-    (product) => product.id == req.params.id
+    (product) => product.title == req.params.title
   );
   let newDatabase = [...dataBase];
-  newDatabase[productIndex] = {
-    ...newDatabase[productIndex],
-    title: req.body.title,
-  };
+  newDatabase[productIndex].title = req.body.title
+    ? req.body.title
+    : newDatabase[productIndex].title;
+  newDatabase[productIndex].type = req.body.type
+    ? req.body.type
+    : newDatabase[productIndex].type;
+  newDatabase[productIndex].description = req.body.description
+    ? req.body.description
+    : newDatabase[productIndex].description;
+  newDatabase[productIndex].price = req.body.price
+    ? req.body.price
+    : newDatabase[productIndex].price;
+  newDatabase[productIndex].rating = req.body.rating
+    ? req.body.rating
+    : newDatabase[productIndex].rating;
   dataBase = newDatabase;
-  console.log(`${req.params.id} id'li ürün güncellendi`);
-  res.json(dataBase).status(200);
+  console.log(`${req.params.title} isimli ürün güncellendi`);
+  res.json(dataBase[productIndex]).status(200);
 });
 
 //Ürün sil

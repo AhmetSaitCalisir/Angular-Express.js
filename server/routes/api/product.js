@@ -1,5 +1,4 @@
 const express = require("express");
-const uniqid = require("uniqid");
 
 const router = express.Router();
 
@@ -119,16 +118,59 @@ router.get("/price/between/:priceH/:priceL", (req, res) => {
 
 //Ürün ekle
 router.post("/", (req, res) => {
-  const id = uniqid();
+  if (!req.body.title || typeof req.body.title != "string") {
+    res
+      .status(400)
+      .send("Lütfen ürün ismini (title) doğru girdiğinizden emin olunuz");
+    return;
+  }
+  if (!req.body.type || typeof req.body.type != "string") {
+    res
+      .status(400)
+      .send("Lütfen ürün tipini (type) doğru girdiğinizden emin olunuz");
+    return;
+  }
+  if (!req.body.description || typeof req.body.description != "string") {
+    res
+      .status(400)
+      .send(
+        "Lütfen ürün açıklamasını (description) doğru girdiğinizden emin olunuz"
+      );
+    return;
+  }
+  if (
+    !req.body.price ||
+    typeof req.body.price != "number" ||
+    req.body.price < 0
+  ) {
+    res
+      .status(400)
+      .send("Lütfen ürün fiyatını (price) doğru girdiğinizden emin olunuz");
+    return;
+  }
+  if (
+    !req.body.rating ||
+    typeof req.body.rating != "number" ||
+    req.body.rating < 0 ||
+    req.body.rating > 5
+  ) {
+    res
+      .status(400)
+      .send(
+        "Lütfen ürün derecelendirmesini (rating) doğru girdiğinizden emin olunuz"
+      );
+    return;
+  }
   const product = {
-    id: id,
     title: req.body.title,
+    type: req.body.type,
+    description: req.body.description,
+    price: req.body.price,
+    rating: req.body.rating,
   };
   dataBase.push(product);
-  console.log(
-    `${product.title} ürünü ${product.id} id'siyle veri tabanına eklendi`
-  );
-  res.json(product).status(200);
+  console.log(`${req.body.title} ürünü, veri tabanına eklendi`);
+  res.status(200).send("Veri Başarıyla Eklendi");
 });
 
 //Ürün güncelle

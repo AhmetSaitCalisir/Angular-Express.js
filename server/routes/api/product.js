@@ -222,37 +222,45 @@ router.post("/", (req, res) => {
 
 //Ürün güncelle
 router.put("/:title", (req, res) => {
-  const productIndex = dataBase.findIndex(
-    (product) => product.title == req.params.title
-  );
-  let newDatabase = [...dataBase];
-  newDatabase[productIndex].title = validation.productT_T_D(req.body.title)
-    ? req.body.title
-    : newDatabase[productIndex].title;
-  newDatabase[productIndex].type = validation.productT_T_D(req.body.type)
-    ? req.body.type
-    : newDatabase[productIndex].type;
-  newDatabase[productIndex].description = validation.productT_T_D(
-    req.body.description
-  )
-    ? req.body.description
-    : newDatabase[productIndex].description;
-  newDatabase[productIndex].price = validation.productPrice(req.body.price)
-    ? req.body.price
-    : newDatabase[productIndex].price;
-  newDatabase[productIndex].rating = validation.productRating(req.body.rating)
-    ? req.body.rating
-    : newDatabase[productIndex].rating;
-  dataBase = newDatabase;
-  console.log(`${req.params.title} isimli ürün güncellendi`);
-  res.json(dataBase[productIndex]).status(200);
+  if (validation.productExist(dataBase, req.params.title, "title")) {
+    const productIndex = dataBase.findIndex(
+      (product) => product.title == req.params.title
+    );
+    let newDatabase = [...dataBase];
+    newDatabase[productIndex].title = validation.productT_T_D(req.body.title)
+      ? req.body.title
+      : newDatabase[productIndex].title;
+    newDatabase[productIndex].type = validation.productT_T_D(req.body.type)
+      ? req.body.type
+      : newDatabase[productIndex].type;
+    newDatabase[productIndex].description = validation.productT_T_D(
+      req.body.description
+    )
+      ? req.body.description
+      : newDatabase[productIndex].description;
+    newDatabase[productIndex].price = validation.productPrice(req.body.price)
+      ? req.body.price
+      : newDatabase[productIndex].price;
+    newDatabase[productIndex].rating = validation.productRating(req.body.rating)
+      ? req.body.rating
+      : newDatabase[productIndex].rating;
+    dataBase = newDatabase;
+    console.log(`${req.params.title} isimli ürün güncellendi`);
+    res.json(dataBase[productIndex]).status(200);
+  } else {
+    res.status(400).send(`${req.params.title} isimli ürün bulunmamaktadır`);
+  }
 });
 
 //Ürün sil
 router.delete("/:title", (req, res) => {
-  dataBase = dataBase.filter((product) => product.title != req.params.title);
-  console.log(`${req.params.title} isimli ürün silindi`);
-  res.status(200).send(`${req.params.title} isimli veri silindi`);
+  if (validation.productExist(dataBase, req.params.title, "title")) {
+    dataBase = dataBase.filter((product) => product.title != req.params.title);
+    console.log(`${req.params.title} isimli ürün silindi`);
+    res.status(200).send(`${req.params.title} isimli veri silindi`);
+  } else {
+    res.status(400).send(`${req.params.title} isimli ürün bulunmamaktadır`);
+  }
 });
 
 module.exports = router;

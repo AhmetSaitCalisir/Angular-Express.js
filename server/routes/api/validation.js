@@ -11,4 +11,21 @@ module.exports = {
     console.log(rating);
     return typeof rating == "number" && rating >= 0 && rating <= 5;
   },
+  productExist(dataBase, value, wanted) {
+    if (!Array.isArray(dataBase)) {
+      console.log("dataBase Array olmalıdır");
+      return false;
+    }
+    if (typeof wanted != "string") {
+      console.log("Wanted değeri string olmalıdır");
+      return false;
+    }
+    let bulundu = false;
+    dataBase.forEach((product) => {
+      if (product[wanted] == value) {
+        bulundu = true;
+      }
+    });
+    return bulundu;
+  },
 };

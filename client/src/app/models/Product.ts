@@ -4,6 +4,7 @@ export class Product {
     public type: string = 'Ürün Türü Yükleniyor...',
     public description: string = 'Açıklama Yükleniyor...',
     public price: number | string = 'Fiyat Yükleniyor...',
-    public rating: number | string = 'Derece Yükleniyor...'
+    public rating: number | string = 'Derece Yükleniyor...',
+    public filename: string = 'Yukleniyor.jpg'
   ) {}
 }

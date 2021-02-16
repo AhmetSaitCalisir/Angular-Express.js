@@ -13,6 +13,7 @@ app.get("/", (req, res) => {
   res.send("MERHABA DÜNYA");
 });
 
+app.use(express.static("assets"));
 app.use("/api/product", product);
 
 const port = process.env.PORT || 4545;

@@ -25,6 +25,6 @@ export class ProductItemComponent implements OnInit {
         this.star.push(false);
       }
     }
-    this.imageUrl = `../../../assets/images/${this.product.filename}`;
+    this.imageUrl = `http://localhost:4545/ProductImages/${this.product.filename}`;
   }
 }

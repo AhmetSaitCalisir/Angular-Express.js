@@ -60,6 +60,30 @@ router.get("/type/:type", (req, res) => {
   }
 });
 
+//Kategori sınırları
+router.get("/filter/:type", (req, res) => {
+  const db = dataBase.filter((v) => {
+    return v.type === req.params.type;
+  });
+  let filterBorder = {
+    HighPrice: -1,
+    LowPrice: 999,
+    HighStar: -1,
+    LowStar: 999,
+  };
+  db.forEach((v) => {
+    filterBorder.HighPrice =
+      v.price > filterBorder.HighPrice ? v.price : filterBorder.HighPrice;
+    filterBorder.LowPrice =
+      v.price < filterBorder.LowPrice ? v.price : filterBorder.LowPrice;
+    filterBorder.HighStar =
+      v.rating > filterBorder.HighStar ? v.rating : filterBorder.HighStar;
+    filterBorder.LowStar =
+      v.rating < filterBorder.LowStar ? v.rating : filterBorder.LowStar;
+  });
+  res.json(filterBorder);
+});
+
 //Ürün ekle
 router.post("/", (req, res) => {
   console.log("----");

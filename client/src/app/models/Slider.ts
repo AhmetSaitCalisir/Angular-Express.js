@@ -2,11 +2,11 @@ import { Options, LabelType } from 'ng5-slider';
 
 export class MoneySlider {
   constructor(
-    public minValue: number = 0,
-    public maxValue: number = 400,
+    public minValue: number = -1,
+    public maxValue: number = 1,
     public options: Options = {
-      floor: 0,
-      ceil: 650,
+      floor: Math.floor(minValue),
+      ceil: Math.ceil(maxValue),
       translate: (value: number, label: LabelType): string => {
         switch (label) {
           case LabelType.Low:
@@ -36,8 +36,8 @@ export class StarSlider {
     public minValue: number = 0,
     public maxValue: number = 5,
     public options: Options = {
-      floor: 0,
-      ceil: 5,
+      floor: Math.floor(minValue),
+      ceil: Math.ceil(maxValue),
       translate: (value: number, label: LabelType): string => {
         switch (label) {
           case LabelType.Low:

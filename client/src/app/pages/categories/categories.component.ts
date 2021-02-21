@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Product } from 'src/app/models/Product';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-categories',
@@ -7,13 +9,22 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./categories.component.css'],
 })
 export class CategoriesComponent implements OnInit {
-  kategori: String = '';
+  kategori: string = '';
+  products: Product[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private productService: ProductService,
+    private activeRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.kategori = params['kategori'];
+    this.activeRoute.params.subscribe((routeParams) => {
+      this.kategori = routeParams['kategori'];
+      this.productService
+        .getProductsByType(routeParams['kategori'])
+        .subscribe((res) => {
+          this.products = res;
+        });
     });
   }
 }

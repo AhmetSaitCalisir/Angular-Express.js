@@ -24,9 +24,13 @@
                 Kategoriler
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#" *ngFor="let type of types">{{
-                  type
-                }}</a>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  *ngFor="let type of types"
+                  routerLink="kategori/{{ type }}"
+                  >{{ type }}</a
+                >
               </div>
             </li>
             <li class="nav-item">

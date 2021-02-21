@@ -2,6 +2,7 @@ import { Product } from '../models/Product';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { FilterBorder } from '../models/Filter';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -31,5 +32,9 @@ export class ProductService {
 
   getTypes(): Observable<String[]> {
     return this.http.get<String[]>(`${this.productUrl}/type`);
+  }
+
+  getFilterBorder(type: string): Observable<FilterBorder> {
+    return this.http.get<FilterBorder>(`${this.productUrl}/filter/${type}`);
   }
 }

@@ -11,6 +11,7 @@ import { ProductItemsComponent } from './components/product-items/product-items.
 import { ProductItemComponent } from './components/product-item/product-item.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FilterComponent } from './components/filter/filter.component';
     ProductItemComponent,
     NavbarComponent,
     FilterComponent,
+    CategoriesComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, Ng5SliderModule],
   providers: [],

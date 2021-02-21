@@ -84,6 +84,17 @@ router.get("/filter/:type", (req, res) => {
   res.json(filterBorder);
 });
 
+//Kategoriler
+router.get("/type", (req, res) => {
+  let types = [];
+  dataBase.forEach((v) => {
+    if (!types.includes(v.type)) {
+      types.push(v.type);
+    }
+  });
+  res.json(types);
+});
+
 //Ürün ekle
 router.post("/", (req, res) => {
   console.log("----");

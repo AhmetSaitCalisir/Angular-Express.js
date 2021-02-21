@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">FİLTRELER</div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <hr />
+      <span class="font-weight-bold">Fiyat Aralığı</span>
+      <ng5-slider
+        [(value)]="moneySlider.minValue"
+        [(highValue)]="moneySlider.maxValue"
+        [options]="moneySlider.options"
+      ></ng5-slider>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <hr />
+      <span class="font-weight-bold">Yıldız Aralığı</span>
+      <ng5-slider
+        [(value)]="starSlider.minValue"
+        [(highValue)]="starSlider.maxValue"
+        [options]="starSlider.options"
+      ></ng5-slider>
+    </div>
+  </div>
+</div>

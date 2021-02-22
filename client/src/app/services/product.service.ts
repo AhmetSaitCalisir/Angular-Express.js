@@ -26,8 +26,8 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.productUrl}/title/${title}`);
   }
 
-  getProductsByType(type: string): Observable<Product[]> {
-    return this.http.get<Product[]>(`${this.productUrl}/type/${type}`);
+  getProductsByType(type: string, query: string = ''): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this.productUrl}/type/${type}${query}`);
   }
 
   getTypes(): Observable<String[]> {

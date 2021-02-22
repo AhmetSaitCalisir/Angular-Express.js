@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-2">
-          <app-filter></app-filter>
+          <app-filter (query)="filtrele($event)"></app-filter>
         </div>
         <div class="col">
           <app-product-items

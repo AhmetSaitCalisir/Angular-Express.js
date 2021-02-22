@@ -27,4 +27,12 @@ export class CategoriesComponent implements OnInit {
         });
     });
   }
+
+  filtrele(query: string) {
+    this.productService
+      .getProductsByType(this.kategori, query)
+      .subscribe((res) => {
+        this.products = res;
+      });
+  }
 }
